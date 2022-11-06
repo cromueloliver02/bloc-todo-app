@@ -19,7 +19,7 @@ class TodoListState extends Equatable {
   List<Object> get props => [todos];
 
   @override
-  String toString() => 'TodoListState(todos: $todos)';
+  String toString() => 'TodoListState(todos: we we$todos)';
 
   TodoListState copyWith({
     List<Todo>? todos,

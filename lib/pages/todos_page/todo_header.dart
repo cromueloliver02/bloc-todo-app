@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bloc_todo_app/cubits/cubits.dart';
+import '../../cubits/cubits.dart';
 
 class TodoHeader extends StatelessWidget {
   const TodoHeader({super.key});

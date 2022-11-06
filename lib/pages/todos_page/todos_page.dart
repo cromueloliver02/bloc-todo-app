@@ -1,3 +1,4 @@
+import 'package:bloc_todo_app/pages/todos_page/create_todo.dart';
 import 'package:flutter/material.dart';
 import 'todo_header.dart';
 
@@ -17,6 +18,7 @@ class TodosPage extends StatelessWidget {
             child: Column(
               children: const [
                 TodoHeader(),
+                CreateTodo(),
               ],
             ),
           ),
