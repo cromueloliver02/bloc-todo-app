@@ -10,7 +10,7 @@ import '../../models/todo.dart';
 
 part 'filtered_todos_state.dart';
 
-class FilteredTodoCubit extends Cubit<FilteredTodosState> {
+class FilteredTodosCubit extends Cubit<FilteredTodosState> {
   final TodoFilterCubit todoFilterCubit;
   final TodoSearchCubit todoSearchCubit;
   final TodoListCubit todoListCubit;
@@ -18,7 +18,7 @@ class FilteredTodoCubit extends Cubit<FilteredTodosState> {
   late final StreamSubscription _todoSearchSubscription;
   late final StreamSubscription _todoListSubscription;
 
-  FilteredTodoCubit({
+  FilteredTodosCubit({
     required this.todoFilterCubit,
     required this.todoSearchCubit,
     required this.todoListCubit,
