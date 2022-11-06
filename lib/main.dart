@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
             todoFilterCubit: ctx.read<TodoFilterCubit>(),
             todoSearchCubit: ctx.read<TodoSearchCubit>(),
             todoListCubit: ctx.read<TodoListCubit>(),
+            initialFilteredTodos: ctx.read<TodoListCubit>().state.todos,
           ),
         ),
       ],
