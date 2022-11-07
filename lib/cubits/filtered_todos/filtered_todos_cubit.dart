@@ -25,14 +25,17 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
     required this.todoListCubit,
     required this.initialFilteredTodos,
   }) : super(FilteredTodosState(filteredTodos: initialFilteredTodos)) {
+    // when selected filter tab changes
     _todoFilterSubscription =
-        todoFilterCubit.stream.listen((state) => _setfilteredTodos());
+        todoFilterCubit.stream.listen((state) => _setFilteredTodos());
 
+    // when search term changes
     _todoSearchSubscription =
-        todoSearchCubit.stream.listen((state) => _setfilteredTodos());
+        todoSearchCubit.stream.listen((state) => _setFilteredTodos());
 
+    // when todo list changes like editing and deleting todos
     _todoListSubscription =
-        todoListCubit.stream.listen((state) => _setfilteredTodos());
+        todoListCubit.stream.listen((state) => _setFilteredTodos());
   }
 
   @override
@@ -43,7 +46,7 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
     return super.close();
   }
 
-  void _setfilteredTodos() {
+  void _setFilteredTodos() {
     final filter = todoFilterCubit.state.filter;
     final searchTerm = todoSearchCubit.state.searchTerm;
     final todos = todoListCubit.state.todos;
