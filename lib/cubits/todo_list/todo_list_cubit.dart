@@ -17,8 +17,10 @@ class TodoListCubit extends Cubit<TodoListState> {
     emit(state.copyWith(todos: todos));
   }
 
-  void editTodo(Todo todo) {
-    final todos = state.todos.map((d) => d.id == todo.id ? todo : d).toList();
+  void editTodo({required String id, required String desc}) {
+    final todos = state.todos
+        .map((d) => d.id == id ? d.copyWith(desc: desc) : d)
+        .toList();
 
     emit(state.copyWith(todos: todos));
   }
