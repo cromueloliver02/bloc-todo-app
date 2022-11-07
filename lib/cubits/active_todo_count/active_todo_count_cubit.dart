@@ -25,7 +25,7 @@ class ActiveTodoCountCubit extends Cubit<ActiveTodoCountState> {
     return super.close();
   }
 
-  void _todoListListener(todoListState) {
+  void _todoListListener(TodoListState todoListState) {
     final activeTodoCount =
         todoListState.todos.where((d) => !d.completed).length;
 
