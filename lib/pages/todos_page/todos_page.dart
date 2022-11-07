@@ -18,12 +18,12 @@ class TodosPage extends StatelessWidget {
               vertical: 40,
             ),
             child: Column(
-              children: const [
-                TodoHeader(),
-                CreateTodo(),
-                SizedBox(height: 20),
+              children: [
+                const TodoHeader(),
+                const CreateTodo(),
+                const SizedBox(height: 20),
                 SearchAndFilterTodo(),
-                ShowTodos(),
+                const ShowTodos(),
               ],
             ),
           ),

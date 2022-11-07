@@ -67,6 +67,8 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
           .toList();
     }
 
+    print(filteredTodos.length);
+
     emit(state.copyWith(filteredTodos: filteredTodos));
   }
 }
