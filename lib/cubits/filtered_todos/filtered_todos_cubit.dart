@@ -64,7 +64,7 @@ class FilteredTodosCubit extends Cubit<FilteredTodosState> {
         filteredTodos = todos;
     }
 
-    if (searchTerm.isNotEmpty) {
+    if (searchTerm.trim().isNotEmpty) {
       filteredTodos = todos
           .where((d) => d.desc.toLowerCase().contains(searchTerm.toLowerCase()))
           .toList();
