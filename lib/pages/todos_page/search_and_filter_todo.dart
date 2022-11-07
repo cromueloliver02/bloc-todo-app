@@ -7,7 +7,7 @@ import '../../utils/debounce.dart';
 class SearchAndFilterTodo extends StatelessWidget {
   SearchAndFilterTodo({super.key});
 
-  final debounce = Debounce(milliseconds: 500);
+  final debounce = Debounce(milliseconds: 1000);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,9 @@ class SearchAndFilterTodo extends StatelessWidget {
             filled: true,
             prefixIcon: Icon(Icons.search),
           ),
-          onChanged: (value) {
-            if (value.trim().isNotEmpty) {
-              debounce.run(
-                () => context.read<TodoSearchCubit>().setSearchTerm(value),
-              );
-            }
-          },
+          onChanged: (value) => debounce.run(
+            () => context.read<TodoSearchCubit>().setSearchTerm(value),
+          ),
         ),
         const SizedBox(height: 10),
         Row(
