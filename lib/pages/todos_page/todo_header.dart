@@ -15,23 +15,23 @@ class TodoHeader extends StatelessWidget {
             fontSize: 40,
           ),
         ),
-        // BlocSelector<ActiveTodoCountCubit, ActiveTodoCountState, int>(
-        //   selector: (state) => state.activeTodoCount,
-        //   builder: (context, activeTodoCount) => Text(
-        //     '$activeTodoCount items left',
-        //     style: const TextStyle(
-        //       color: Colors.redAccent,
-        //       fontSize: 20,
-        //     ),
-        //   ),
-        // ),
-        Text(
-          '${context.watch<ActiveTodoCountCubit>().state.activeTodoCount} items left',
-          style: const TextStyle(
-            color: Colors.redAccent,
-            fontSize: 20,
+        BlocSelector<ActiveTodoCountCubit, ActiveTodoCountState, int>(
+          selector: (state) => state.activeTodoCount,
+          builder: (context, activeTodoCount) => Text(
+            '$activeTodoCount items left',
+            style: const TextStyle(
+              color: Colors.redAccent,
+              fontSize: 20,
+            ),
           ),
         ),
+        // Text(
+        //   '${context.watch<ActiveTodoCountCubit>().state.activeTodoCount} items left',
+        //   style: const TextStyle(
+        //     color: Colors.redAccent,
+        //     fontSize: 20,
+        //   ),
+        // ),
       ],
     );
   }
