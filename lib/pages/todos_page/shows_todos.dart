@@ -6,54 +6,81 @@ import '../../models/todo.dart';
 class ShowTodos extends StatelessWidget {
   const ShowTodos({super.key});
 
+  void _filteredCubitListener(BuildContext ctx) {
+    final todoFilterCubit = ctx.read<TodoFilterCubit>().state.filter;
+    final todoSearchCubit = ctx.read<TodoSearchCubit>().state.searchTerm;
+    final todoListCubit = ctx.read<TodoListCubit>().state.todos;
+
+    ctx.read<FilteredTodosCubit>().setFilteredTodos(
+          todoFilterCubit,
+          todoSearchCubit,
+          todoListCubit,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final todos = context.watch<FilteredTodosCubit>().state.filteredTodos;
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<TodoFilterCubit, TodoFilterState>(
+          listener: (ctx, state) => _filteredCubitListener(ctx),
+        ),
+        BlocListener<TodoSearchCubit, TodoSearchState>(
+          listener: (ctx, state) => _filteredCubitListener(ctx),
+        ),
+        BlocListener<TodoListCubit, TodoListState>(
+          listener: (ctx, state) => _filteredCubitListener(ctx),
+        ),
+      ],
+      child: Builder(builder: (ctx) {
+        final todos = ctx.watch<FilteredTodosCubit>().state.filteredTodos;
 
-    return ListView.separated(
-      primary: false, // TODO - to learn about this
-      shrinkWrap: true, // TODO - to learn about this
-      itemCount: todos.length,
-      separatorBuilder: (ctx, idx) => const Divider(color: Colors.grey),
-      itemBuilder: (ctx, idx) {
-        final todo = todos[idx];
+        return ListView.separated(
+          primary: false, // TODO - to learn about this
+          shrinkWrap: true, // TODO - to learn about this
+          itemCount: todos.length,
+          separatorBuilder: (ctx, idx) => const Divider(color: Colors.grey),
+          itemBuilder: (ctx, idx) {
+            final todo = todos[idx];
 
-        return Dismissible(
-          key: ValueKey(todo.id),
-          direction: DismissDirection.startToEnd,
-          onDismissed: (direction) =>
-              ctx.read<TodoListCubit>().removeTodo(todo.id),
-          confirmDismiss: (direction) => showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (ctx) => AlertDialog(
-              title: const Text('Are you sure?'),
-              content: const Text('Do you really want to delete?'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context, false),
-                  child: const Text('NO'),
+            return Dismissible(
+              key: ValueKey(todo.id),
+              direction: DismissDirection.startToEnd,
+              onDismissed: (direction) =>
+                  ctx.read<TodoListCubit>().removeTodo(todo.id),
+              confirmDismiss: (direction) => showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (ctx) => AlertDialog(
+                  title: const Text('Are you sure?'),
+                  content: const Text('Do you really want to delete?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, false),
+                      child: const Text('NO'),
+                    ),
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, true),
+                      child: const Text('YES'),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pop(context, true),
-                  child: const Text('YES'),
+              ),
+              background: Container(
+                color: Colors.red,
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: const Icon(
+                  Icons.delete,
+                  size: 30,
+                  color: Colors.white,
                 ),
-              ],
-            ),
-          ),
-          background: Container(
-            color: Colors.red,
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const Icon(
-              Icons.delete,
-              size: 30,
-              color: Colors.white,
-            ),
-          ),
-          child: _TodoTile(todo: todo),
+              ),
+              child: _TodoTile(todo: todo),
+            );
+          },
         );
-      },
+      }),
     );
   }
 }
