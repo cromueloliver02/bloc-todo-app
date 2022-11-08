@@ -1,7 +1,7 @@
-import 'package:bloc_todo_app/models/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import '../../cubits/cubits.dart';
+import '../../blocs/blocs.dart';
+import '../../models/todo.dart';
 
 class CreateTodo extends StatefulWidget {
   const CreateTodo({super.key});
@@ -23,7 +23,7 @@ class _CreateTodoState extends State<CreateTodo> {
           const uuid = Uuid();
           final todo = Todo(id: uuid.v4(), desc: value);
 
-          context.read<TodoListCubit>().addTodo(todo);
+          context.read<TodoListBloc>().add(AddTodoEvent(todo: todo));
           _createTodoController.clear();
         }
       },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'cubits/cubits.dart';
-import 'cubits/bloc_providers.dart';
+import 'blocs/blocs.dart';
+import 'blocs/bloc_providers.dart';
 import 'pages/todos_page/todos_page.dart';
 
 void main() => runApp(MyApp());
